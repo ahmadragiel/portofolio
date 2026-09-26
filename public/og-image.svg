@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Ahmad Ragiel Zaini — Developer Portfolio">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0B1220" />
+      <stop offset="55%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#0B1220" />
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#2563EB" stop-opacity="0.55" />
+      <stop offset="100%" stop-color="#2563EB" stop-opacity="0" />
+    </radialGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0v48" fill="none" stroke="#94A3B8" stroke-opacity="0.16" stroke-width="1" />
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <ellipse cx="930" cy="120" rx="520" ry="380" fill="url(#glow)" />
+  <ellipse cx="180" cy="560" rx="420" ry="300" fill="url(#glow)" opacity="0.5" />
+  <rect width="1200" height="630" fill="url(#grid)" />
+
+  <!-- Left accent bar -->
+  <rect x="0" y="150" width="6" height="330" rx="3" fill="#3B82F6" />
+
+  <!-- Monogram -->
+  <g transform="translate(96 132)">
+    <rect width="96" height="96" rx="20" fill="#2563EB" />
+    <text
+      x="48"
+      y="50"
+      font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+      font-size="40"
+      font-weight="700"
+      fill="#FFFFFF"
+      text-anchor="middle"
+      dominant-baseline="central"
+      letter-spacing="-2"
+    >AR</text>
+  </g>
+
+  <!-- Name -->
+  <text
+    x="96"
+    y="320"
+    font-family="'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif"
+    font-size="72"
+    font-weight="800"
+    fill="#FFFFFF"
+    letter-spacing="-2"
+  >Ahmad Ragiel Zaini</text>
+
+  <!-- Role -->
+  <text
+    x="96"
+    y="382"
+    font-family="'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif"
+    font-size="30"
+    font-weight="600"
+    fill="#93C5FD"
+  >Informatics Engineering Student</text>
+
+  <!-- Tagline -->
+  <text
+    x="96"
+    y="438"
+    font-family="'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif"
+    font-size="26"
+    font-weight="500"
+    fill="#94A3B8"
+  >Building Web Applications &amp; Exploring Data and Machine Learning</text>
+
+  <!-- Footer strip -->
+  <g transform="translate(96 512)">
+    <rect width="252" height="44" rx="22" fill="none" stroke="#2563EB" stroke-opacity="0.55" stroke-width="1.5" />
+    <circle cx="26" cy="22" r="5" fill="#34D399" />
+    <text
+      x="44"
+      y="29"
+      font-family="'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif"
+      font-size="17"
+      font-weight="600"
+      fill="#CBD5E1"
+    >Open to Internships &amp; Collabs</text>
+  </g>
+
+  <text
+    x="96"
+    y="592"
+    font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+    font-size="19"
+    fill="#64748B"
+  >github.com/ahmadragiel</text>
+
+  <!-- Decorative orbit rings -->
+  <g fill="none" stroke="#3B82F6" stroke-opacity="0.3">
+    <circle cx="1010" cy="440" r="150" stroke-width="1.5" />
+    <circle cx="1010" cy="440" r="104" stroke-width="1.5" stroke-dasharray="6 8" />
+  </g>
+  <circle cx="1010" cy="440" r="30" fill="#2563EB" fill-opacity="0.18" />
+</svg>

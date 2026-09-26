@@ -1,0 +1,398 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   DESIGN TOKENS
+   Single source of truth for colour, radius, shadow, and type. Every component
+   consumes these tokens, so there is exactly one visual language in the app.
+   ========================================================================== */
+@theme {
+  /* ---- Brand palette (blue / deep navy) ---- */
+  --color-navy-900: #0b1220;
+  --color-navy-800: #111827;
+  --color-navy-700: #1c2536;
+  --color-navy-600: #27324a;
+
+  --color-blue-700: #1d4ed8;
+  --color-blue-600: #2563eb;
+  --color-blue-500: #3b82f6;
+  --color-blue-400: #60a5fa;
+  --color-blue-300: #93c5fd;
+  --color-blue-200: #dbeafe;
+  --color-blue-100: #eff6ff;
+
+  /* ---- Neutrals ---- */
+  --color-ink: #0f172a;
+  --color-muted: #64748b;
+  /*
+   * `faint` is deliberately only slightly lighter than `muted`. Anything lighter
+   * drops below the 4.5:1 WCAG AA contrast ratio on white, and this token is used
+   * for small metadata (dates, counts, labels) that has to stay readable.
+   * Verified: 4.62:1 on #FFFFFF.
+   */
+  --color-faint: #68768a;
+  --color-line: #e2e8f0;
+  /* 3.1:1 on white - meets the 3:1 non-text requirement for control boundaries. */
+  --color-line-strong: #8494a8;
+  --color-line-soft: #eef2f7;
+  --color-surface: #ffffff;
+  --color-canvas: #f8fafc;
+
+  /* ---- Typography ---- */
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system,
+    'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono',
+    Menlo, monospace;
+
+  /* ---- Radius ---- */
+  --radius-card: 0.875rem;
+  --radius-panel: 1.25rem;
+
+  /* ---- Elevation (subtle only) ---- */
+  --shadow-soft: 0 1px 2px rgb(15 23 42 / 0.04), 0 4px 16px rgb(15 23 42 / 0.05);
+  --shadow-lift: 0 2px 4px rgb(15 23 42 / 0.05), 0 12px 32px rgb(15 23 42 / 0.09);
+  --shadow-glow: 0 0 0 1px rgb(37 99 235 / 0.16), 0 18px 48px rgb(37 99 235 / 0.16);
+
+  /* ---- Motion ---- */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    border-color: var(--color-line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Offset anchor targets so the sticky navbar never covers a heading. */
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Prevents horizontal scroll from decorative overflow. */
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Visible, consistent focus ring everywhere. */
+  :focus-visible {
+    outline: 2px solid var(--color-blue-600);
+    outline-offset: 2px;
+    border-radius: 0.375rem;
+  }
+
+  /* Never rely on colour alone for state. */
+  ::selection {
+    background-color: var(--color-blue-200);
+    color: var(--color-navy-900);
+  }
+
+  /*
+   * The search field has its own clear button, so the WebKit native one is
+   * hidden to avoid two identical controls stacked in the same corner.
+   */
+  input[type='search']::-webkit-search-cancel-button,
+  input[type='search']::-webkit-search-decoration {
+    appearance: none;
+    display: none;
+  }
+
+  /* Slimmer scrollbar that matches the palette. */
+  @supports (scrollbar-width: thin) {
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-blue-300) transparent;
+    }
+  }
+}
+
+/* ==========================================================================
+   COMPONENT PRIMITIVES
+   Kept minimal on purpose: one button family, one card, one badge.
+   ========================================================================== */
+@layer components {
+  .container-page {
+    width: 100%;
+    margin-inline: auto;
+    max-width: 78rem;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-page {
+      padding-inline: 2rem;
+    }
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 0.625rem;
+    padding: 0.6875rem 1.125rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.25rem;
+    white-space: nowrap;
+    transition:
+      background-color 180ms var(--ease-out-soft),
+      border-color 180ms var(--ease-out-soft),
+      color 180ms var(--ease-out-soft),
+      transform 180ms var(--ease-out-soft),
+      box-shadow 180ms var(--ease-out-soft);
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  .btn-primary {
+    background-color: var(--color-blue-600);
+    color: #fff;
+    box-shadow: 0 8px 20px rgb(37 99 235 / 0.22);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-blue-700);
+  }
+
+  .btn-secondary {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    /* line-strong keeps the button boundary above the 3:1 non-text threshold. */
+    border: 1px solid var(--color-line-strong);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--color-blue-300);
+    color: var(--color-blue-700);
+    background-color: var(--color-blue-100);
+  }
+
+  .btn-ghost-light {
+    background-color: rgb(255 255 255 / 0.06);
+    color: #fff;
+    /* Lightened from 0.18 so the boundary is discernible against the navy hero. */
+    border: 1px solid rgb(255 255 255 / 0.3);
+    backdrop-filter: blur(6px);
+  }
+
+  .btn-ghost-light:hover {
+    background-color: rgb(255 255 255 / 0.12);
+    border-color: rgb(147 197 253 / 0.5);
+  }
+
+  .card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3125rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-line);
+    background-color: var(--color-surface);
+    padding: 0.25rem 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1rem;
+    color: var(--color-muted);
+    white-space: nowrap;
+  }
+
+  .badge-accent {
+    background-color: var(--color-blue-100);
+    border-color: var(--color-blue-200);
+    color: var(--color-blue-700);
+  }
+
+  /* Section eyebrow: small monospaced label above each heading. */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-blue-600);
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 1.5rem;
+    height: 1px;
+    background-color: currentColor;
+    opacity: 0.5;
+  }
+
+  .section-title {
+    font-size: clamp(1.75rem, 1.2rem + 2.2vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--color-navy-900);
+  }
+
+  .section-lead {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--color-muted);
+    max-width: 62ch;
+  }
+
+  /* Thin top accent used on cards. */
+  .accent-top {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .accent-top::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      var(--color-blue-600),
+      var(--color-blue-400)
+    );
+    opacity: 0;
+    transition: opacity 220ms var(--ease-out-soft);
+  }
+
+  .accent-top:hover::before,
+  .accent-top:focus-within::before {
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   ANIMATION
+   Subtle only: fade + rise, hover lift, smooth scroll. Respect reduced motion.
+   ========================================================================== */
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 620ms var(--ease-out-soft),
+      transform 620ms var(--ease-out-soft);
+  }
+
+  .reveal-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .animate-modal-in {
+    animation: modal-in 220ms var(--ease-out-soft) both;
+  }
+
+  .animate-backdrop-in {
+    animation: backdrop-in 180ms ease-out both;
+  }
+
+  .animate-pop {
+    animation: pop 320ms var(--ease-out-soft) both;
+  }
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Hero-only motion. Slow, small, and non-distracting.
+   --------------------------------------------------------------------------- */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+@keyframes orbit {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "ahmadragiel-portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Personal developer portfolio for Ahmad Ragiel Zaini — Informatics Engineering Student.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b --pretty",
+    "test:smoke": "vite build --config vite.smoke.config.ts && node node_modules/.smoke/smoke-test.js",
+    "sync:github": "node scripts/sync-github.mjs"
+  },
+  "dependencies": {
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.6.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^5.2.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.6"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  }
+}

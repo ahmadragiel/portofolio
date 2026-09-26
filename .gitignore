@@ -1,0 +1,48 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Build output
+dist
+dist-ssr
+build
+.vercel
+.netlify
+
+# TypeScript incremental build info
+*.tsbuildinfo
+node_modules/.smoke
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor / OS
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Certificates
+# Certificate files are intentionally NOT ignored: drop real certificate
+# files into public/certificates/ and register them in src/data/certificates.ts
+# Temporary working files created while preparing certificates:
+public/certificates/*.tmp
+public/certificates/*.psd
+public/certificates/*.fig
